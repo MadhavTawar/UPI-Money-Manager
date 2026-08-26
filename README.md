@@ -10,6 +10,7 @@ A simple full-stack dashboard for understanding sample UPI activity. The Flask b
 - Shows income, expenses, category totals, and transaction count
 - Displays projected savings for qualifying cashback transactions
 - Allows category updates from the dashboard
+- Accepts new raw transaction alerts directly from the dashboard
 
 ## Tech Stack
 
@@ -38,6 +39,7 @@ Open <http://127.0.0.1:5000> in a browser.
 
 - `GET /` - Dashboard frontend
 - `GET /api/transactions` - Parsed in-memory transactions
+- `POST /api/transactions` - Parse and add a transaction with `{ "message": "Paid Rs. 100 to Cafe" }`
 - `GET /api/summary` - Income, expense, category, and count totals
 - `PATCH /api/transactions/<id>/category` - Update a category with `{ "category": "Travel" }`
 

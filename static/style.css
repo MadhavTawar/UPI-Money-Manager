@@ -65,6 +65,15 @@ h2 { margin-bottom: 0; font-size: 2rem; font-weight: 500; }
 .progress-track { height: .45rem; overflow: hidden; background: #e2e9e2; }
 .progress-bar { height: 100%; width: 0; background: var(--category-color); transition: width .5s ease; }
 
+.add-section { margin-top: 4.5rem; }
+.message-form { padding: 1.25rem; border: 1px solid var(--line); background: var(--paper); }
+.message-form label { display: block; margin-bottom: .65rem; color: var(--muted); font: .78rem system-ui, sans-serif; }
+.message-controls { display: flex; gap: .75rem; }
+.message-controls input { flex: 1; min-width: 0; padding: .8rem .85rem; border: 1px solid var(--line); border-radius: 4px; color: var(--ink); background: #fff; font: .9rem system-ui, sans-serif; }
+.message-controls button { padding: .8rem 1.1rem; border: 0; border-radius: 4px; color: #fff; background: var(--green); cursor: pointer; font: 700 .8rem system-ui, sans-serif; }
+.message-controls button:disabled { opacity: .6; cursor: wait; }
+.form-status { min-height: 1.1rem; margin: .65rem 0 0; color: var(--coral); font: .75rem system-ui, sans-serif; }
+
 .transaction-feed { max-height: 430px; overflow-y: auto; border-top: 1px solid var(--line); background: rgba(251, 252, 248, .55); }
 .transaction-row { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(150px, .55fr); align-items: center; gap: 1.25rem; padding: 1.15rem .75rem; border-bottom: 1px solid var(--line); }
 .transaction-description { margin-bottom: .3rem; font-size: 1.05rem; }
@@ -83,4 +92,5 @@ h2 { margin-bottom: 0; font-size: 2rem; font-weight: 500; }
     .metric-card strong { font-size: 1.75rem; }
     .transaction-row { grid-template-columns: minmax(0, 1fr) auto; gap: .6rem; }
     .category-select { grid-column: 1 / -1; }
+    .message-controls { align-items: stretch; flex-direction: column; }
 }

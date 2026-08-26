@@ -1,6 +1,8 @@
+from datetime import datetime
+
 from flask import Flask, jsonify, render_template, request
 
-from parser import CATEGORIES, aggregate_summary, parse_sample_transactions
+from parser import CATEGORIES, aggregate_summary, parse_sample_transactions, parse_transaction
 
 app = Flask(__name__)
 transactions = [
@@ -23,6 +25,28 @@ def summary():
 @app.get("/api/transactions")
 def get_transactions():
     return jsonify(transactions)
+
+
+@app.post("/api/transactions")
+def add_transaction():
+    data = request.get_json(silent=True) or {}
+    message = data.get("message", "").strip()
+    if not message:
+        return jsonify({"error": "Transaction message is required"}), 400
+
+    try:
+        transaction = parse_transaction(message)
+    except ValueError as error:
+        return jsonify({"error": str(error)}), 400
+
+    transaction = {
+        "id": max((item["id"] for item in transactions), default=0) + 1,
+        **transaction,
+        "timestamp": datetime.now().isoformat(timespec="seconds"),
+    }
+    transactions.append(transaction)
+    transactions.sort(key=lambda item: item["timestamp"], reverse=True)
+    return jsonify(transaction), 201
 
 
 @app.patch("/api/transactions/<int:transaction_id>/category")

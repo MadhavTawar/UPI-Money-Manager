@@ -73,6 +73,33 @@ document.querySelector("#transaction-feed").addEventListener("change", async (ev
 	await loadDashboard();
 });
 
+document.querySelector("#message-form").addEventListener("submit", async (event) => {
+	event.preventDefault();
+	const form = event.currentTarget;
+	const input = form.querySelector("#message-input");
+	const button = form.querySelector("button");
+	const status = document.querySelector("#form-status");
+	button.disabled = true;
+	status.textContent = "";
+
+	try {
+		const response = await fetch("/api/transactions", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ message: input.value }),
+		});
+		const result = await response.json();
+		if (!response.ok) throw new Error(result.error || "Transaction could not be added");
+		input.value = "";
+		status.textContent = "Transaction added";
+		await loadDashboard();
+	} catch (error) {
+		status.textContent = error.message;
+	} finally {
+		button.disabled = false;
+	}
+});
+
 loadDashboard().catch(() => {
 	document.querySelector("#feed-status").textContent = "Unable to load activity";
 });

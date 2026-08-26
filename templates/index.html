@@ -45,6 +45,23 @@
             <div id="category-cards" class="category-grid"></div>
         </section>
 
+        <section class="add-section" aria-labelledby="add-heading">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">LIVE INPUT</p>
+                    <h2 id="add-heading">Add a transaction</h2>
+                </div>
+            </div>
+            <form id="message-form" class="message-form">
+                <label for="message-input">Paste a bank alert</label>
+                <div class="message-controls">
+                    <input id="message-input" name="message" type="text" placeholder="Paid Rs. 250 to Zomato via UPI" required>
+                    <button type="submit">Add transaction</button>
+                </div>
+                <p id="form-status" class="form-status" aria-live="polite"></p>
+            </form>
+        </section>
+
         <section class="transactions-section" aria-labelledby="transactions-heading">
             <div class="section-heading">
                 <div>
