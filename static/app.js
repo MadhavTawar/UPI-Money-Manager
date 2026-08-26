@@ -30,9 +30,6 @@ function renderSummary(summary) {
 function renderTransactions(transactions) {
 	const feed = document.querySelector("#transaction-feed");
 	feed.innerHTML = transactions.map((transaction) => {
-		const amountClass = transaction.amount >= 0 ? "income" : "expense";
-		const amountPrefix = transaction.amount >= 0 ? "+" : "-";
-		const absoluteAmount = Math.abs(transaction.amount);
 		const savings = transaction.expected_savings === null ? "" : `
 			<div class="savings">🟢 Expected Savings<br>${formatCurrency(transaction.expected_savings)} projected reward</div>
 		`;
@@ -40,7 +37,7 @@ function renderTransactions(transactions) {
 		return `
 			<article class="transaction-row">
 				<div><div class="transaction-description">${transaction.raw_message}</div><div class="transaction-type">${new Date(transaction.timestamp).toLocaleString()}</div>${savings}</div>
-				<div class="transaction-amount ${amountClass}">${amountPrefix}${formatCurrency(absoluteAmount)}</div>
+				<div class="transaction-amount ${transaction.transaction_type}">${transaction.amount_display}</div>
 				<select class="category-select" data-transaction-id="${transaction.id}" aria-label="Category for ${transaction.merchant}">${options}</select>
 			</article>
 		`;

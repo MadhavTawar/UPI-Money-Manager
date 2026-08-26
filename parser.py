@@ -60,6 +60,10 @@ def _get_category(message):
 	return "Miscellaneous"
 
 
+def _format_amount(amount):
+	return f"{'+' if amount >= 0 else '-'}₹{abs(amount):,.2f}"
+
+
 def parse_transaction(message):
 	"""Parse one raw UPI message into normalized transaction data."""
 	amount = _extract_amount(message)
@@ -70,10 +74,12 @@ def parse_transaction(message):
 		and any(keyword in message.casefold() for keyword in REWARD_KEYWORDS)
 	)
 
+	signed_amount = amount if is_income else -amount
 	return {
 		"raw_message": message,
 		"merchant": merchant,
-		"amount": amount if is_income else -amount,
+		"amount": signed_amount,
+		"amount_display": _format_amount(signed_amount),
 		"transaction_type": "income" if is_income else "expense",
 		"category": _get_category(message),
 		"expected_savings": round(amount * 0.05, 2) if has_expected_savings else None,

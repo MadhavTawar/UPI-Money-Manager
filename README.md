@@ -22,7 +22,7 @@ A simple full-stack dashboard for understanding sample UPI activity. The Flask b
 
 ## Architecture
 
-`parser.py` owns message parsing, categorization, timestamps, expected savings, and aggregation. `app.py` owns Flask routes and the in-memory transaction list. `templates/index.html`, `static/style.css`, and `static/app.js` provide the dashboard presentation and API interactions.
+`parser.py` owns message parsing, categorization, timestamps, signed display amounts, expected savings, and aggregation. `app.py` owns Flask routes and the in-memory transaction list. `templates/index.html`, `static/style.css`, and `static/app.js` provide the dashboard presentation and API interactions. The browser does not calculate financial values; it renders values returned by the backend.
 
 ## Setup
 
