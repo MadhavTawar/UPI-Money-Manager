@@ -1,0 +1,86 @@
+:root {
+    color-scheme: light;
+    --ink: #17211b;
+    --muted: #718078;
+    --line: #dce5de;
+    --paper: #fbfcf8;
+    --mint: #dff3e4;
+    --green: #25734a;
+    --coral: #dc765f;
+    --amber: #e8ae48;
+    --blue: #5a83a6;
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--ink);
+    background: #eef3ed;
+}
+
+body {
+    margin: 0;
+    background: radial-gradient(circle at 90% 0%, #dcefe1 0, transparent 28rem), #eef3ed;
+}
+
+.app-shell {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 5rem;
+}
+
+.page-header, .section-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.eyebrow {
+    margin: 0 0 .65rem;
+    color: var(--green);
+    font: 700 .7rem/1.2 system-ui, sans-serif;
+    letter-spacing: .12em;
+}
+
+h1, h2, p { margin-top: 0; }
+h1 { margin-bottom: .6rem; font-size: clamp(2.3rem, 6vw, 4.5rem); line-height: .95; font-weight: 500; }
+h2 { margin-bottom: 0; font-size: 2rem; font-weight: 500; }
+.subtitle { color: var(--muted); font: 1rem/1.5 system-ui, sans-serif; }
+.period-label, .feed-status { color: var(--muted); font: .8rem system-ui, sans-serif; }
+.status-dot { display: inline-block; width: .5rem; height: .5rem; margin-left: .35rem; border-radius: 50%; background: #4da76b; }
+
+.overview-grid { display: grid; grid-template-columns: 1.2fr 1.2fr .8fr; gap: 1rem; margin: 3rem 0 4.5rem; }
+.metric-card { padding: 1.5rem; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+.metric-card p { margin-bottom: 1.7rem; color: var(--muted); font: .82rem system-ui, sans-serif; }
+.metric-card strong { display: block; margin-bottom: .5rem; font-size: 2.35rem; font-weight: 500; }
+.metric-note { color: var(--muted); font: .75rem system-ui, sans-serif; }
+.income-card { background: var(--mint); border-color: #c7e5d0; }
+.income-card strong { color: var(--green); }
+.expense-card strong { color: var(--coral); }
+
+.category-section, .transactions-section { margin-top: 3rem; }
+.section-heading { margin-bottom: 1.25rem; }
+.category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.category-card { padding: 1.25rem; border-top: 3px solid var(--category-color); background: rgba(251, 252, 248, .75); }
+.category-top { display: flex; justify-content: space-between; gap: .75rem; margin-bottom: 1.3rem; }
+.category-name { font-size: 1.05rem; }
+.category-value { font: 700 .85rem system-ui, sans-serif; }
+.progress-track { height: .45rem; overflow: hidden; background: #e2e9e2; }
+.progress-bar { height: 100%; width: 0; background: var(--category-color); transition: width .5s ease; }
+
+.transaction-feed { max-height: 430px; overflow-y: auto; border-top: 1px solid var(--line); background: rgba(251, 252, 248, .55); }
+.transaction-row { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(150px, .55fr); align-items: center; gap: 1.25rem; padding: 1.15rem .75rem; border-bottom: 1px solid var(--line); }
+.transaction-description { margin-bottom: .3rem; font-size: 1.05rem; }
+.transaction-type { color: var(--muted); font: .72rem system-ui, sans-serif; text-transform: uppercase; letter-spacing: .08em; }
+.transaction-amount { font: 700 1rem system-ui, sans-serif; white-space: nowrap; }
+.expense { color: var(--coral); }
+.income { color: var(--green); }
+.category-select { width: 100%; padding: .6rem .65rem; border: 1px solid var(--line); border-radius: 4px; color: var(--ink); background: var(--paper); font: .78rem system-ui, sans-serif; }
+.savings { margin-top: .5rem; color: var(--green); font: .72rem system-ui, sans-serif; }
+
+@media (max-width: 760px) {
+    .app-shell { padding-top: 2rem; }
+    .page-header { align-items: flex-start; flex-direction: column; }
+    .overview-grid, .category-grid { grid-template-columns: 1fr 1fr; }
+    .overview-grid { margin: 2rem 0 3rem; }
+    .metric-card strong { font-size: 1.75rem; }
+    .transaction-row { grid-template-columns: minmax(0, 1fr) auto; gap: .6rem; }
+    .category-select { grid-column: 1 / -1; }
+}
