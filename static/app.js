@@ -19,12 +19,10 @@ function renderSummary(summary) {
 	document.querySelector("#total-expenses").textContent = formatCurrency(summary.total_expenses);
 	document.querySelector("#transaction-count").textContent = summary.transaction_count;
 
-	const categoryValues = categories.map((category) => summary[category]);
-	const largestCategory = Math.max(...categoryValues, 1);
 	document.querySelector("#category-cards").innerHTML = categories.map((category) => `
 		<article class="category-card" style="--category-color: ${categoryColors[category]}">
 			<div class="category-top"><span class="category-name">${category}</span><span class="category-value">${formatCurrency(summary[category])}</span></div>
-			<div class="progress-track"><div class="progress-bar" style="width: ${(summary[category] / largestCategory) * 100}%"></div></div>
+			<div class="progress-track"><div class="progress-bar" style="width: ${summary.category_progress[category]}%"></div></div>
 		</article>
 	`).join("");
 }
@@ -41,7 +39,7 @@ function renderTransactions(transactions) {
 		const options = categories.map((category) => `<option value="${category}" ${category === transaction.category ? "selected" : ""}>${category}</option>`).join("");
 		return `
 			<article class="transaction-row">
-				<div><div class="transaction-description">${transaction.merchant}</div><div class="transaction-type">${transaction.transaction_type}</div>${savings}</div>
+				<div><div class="transaction-description">${transaction.raw_message}</div><div class="transaction-type">${new Date(transaction.timestamp).toLocaleString()}</div>${savings}</div>
 				<div class="transaction-amount ${amountClass}">${amountPrefix}${formatCurrency(absoluteAmount)}</div>
 				<select class="category-select" data-transaction-id="${transaction.id}" aria-label="Category for ${transaction.merchant}">${options}</select>
 			</article>

@@ -7,6 +7,7 @@ transactions = [
     {"id": index, **transaction}
     for index, transaction in enumerate(parse_sample_transactions(), start=1)
 ]
+transactions.sort(key=lambda transaction: transaction["timestamp"], reverse=True)
 
 
 @app.get("/")

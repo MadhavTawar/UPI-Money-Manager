@@ -4,7 +4,7 @@ A simple full-stack dashboard for understanding sample UPI activity. The Flask b
 
 ## Features
 
-- Parses sample UPI payment and receipt messages
+- Parses sample UPI payment and receipt messages in chronological order
 - Detects income and expenses with signed amounts
 - Categorizes transactions into Food & Dining, Travel, Salary, or Miscellaneous
 - Shows income, expenses, category totals, and transaction count
@@ -21,7 +21,7 @@ A simple full-stack dashboard for understanding sample UPI activity. The Flask b
 
 ## Architecture
 
-`parser.py` owns message parsing, categorization, expected savings, and aggregation. `app.py` owns Flask routes and the in-memory transaction list. `templates/index.html`, `static/style.css`, and `static/app.js` provide the dashboard presentation and API interactions.
+`parser.py` owns message parsing, categorization, timestamps, expected savings, and aggregation. `app.py` owns Flask routes and the in-memory transaction list. `templates/index.html`, `static/style.css`, and `static/app.js` provide the dashboard presentation and API interactions.
 
 ## Setup
 
@@ -45,7 +45,7 @@ The PATCH endpoint accepts only `Food & Dining`, `Travel`, `Salary`, and `Miscel
 
 ## Categorization Logic
 
-Matching is case-insensitive. Food & Dining recognizes Zomato, Swiggy, restaurant, cafe, and food. Travel recognizes Uber, Ola, Rapido, Metro, IRCTC, and flight. Salary recognizes salary, payroll, company, and employer. Unmatched messages become Miscellaneous.
+Matching is case-insensitive. Food & Dining recognizes Zomato, Swiggy, restaurant, cafe, and food. Travel recognizes Uber, Ola, Rapido, Metro, IRCTC, and flight. Salary recognizes salary, payroll, company, and employer. Unmatched messages become Miscellaneous. Reward terms include Cashback, reward, rewards, CashKaro, CRED, PhonePe Rewards, and Paytm Rewards.
 
 ## Expected Savings Logic
 

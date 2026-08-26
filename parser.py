@@ -18,7 +18,24 @@ CATEGORY_KEYWORDS = {
 	"Salary": ("salary", "payroll", "company", "employer"),
 }
 
-REWARD_KEYWORDS = ("cashback", "reward", "rewards")
+REWARD_KEYWORDS = (
+	"cashback",
+	"reward",
+	"rewards",
+	"cashkaro",
+	"cred",
+	"phonepe rewards",
+	"paytm rewards",
+)
+
+SAMPLE_TIMESTAMPS = (
+	"2026-08-26T20:30:00",
+	"2026-08-26T19:45:00",
+	"2026-08-26T18:20:00",
+	"2026-08-26T17:00:00",
+	"2026-08-26T16:15:00",
+	"2026-08-26T15:30:00",
+)
 
 
 def _extract_amount(message):
@@ -64,7 +81,10 @@ def parse_transaction(message):
 
 
 def parse_sample_transactions():
-	return [parse_transaction(message) for message in SAMPLE_MESSAGES]
+	return [
+		{**parse_transaction(message), "timestamp": timestamp}
+		for message, timestamp in zip(SAMPLE_MESSAGES, SAMPLE_TIMESTAMPS)
+	]
 
 
 def aggregate_summary(transactions):
@@ -77,6 +97,7 @@ def aggregate_summary(transactions):
 		"Salary": 0.0,
 		"Miscellaneous": 0.0,
 		"transaction_count": len(transactions),
+		"category_progress": {category: 0.0 for category in CATEGORIES},
 	}
 
 	for transaction in transactions:
@@ -86,5 +107,18 @@ def aggregate_summary(transactions):
 		else:
 			summary["total_expenses"] += abs(amount)
 		summary[transaction["category"]] += abs(amount)
+
+	total_category_value = sum(summary[category] for category in CATEGORIES)
+	if total_category_value:
+		for category in CATEGORIES[:-1]:
+			summary["category_progress"][category] = round(
+				summary[category] / total_category_value * 100,
+				2,
+			)
+		last_category = CATEGORIES[-1]
+		summary["category_progress"][last_category] = round(
+			100 - sum(summary["category_progress"].values()),
+			2,
+		)
 
 	return summary
